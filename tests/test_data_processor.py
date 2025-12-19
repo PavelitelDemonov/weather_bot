@@ -1,4 +1,4 @@
 from services.weather_api import get_weather
-from services.data_processor import process_raw_data
+from services.data_processor import process_weather
 
-print(process_raw_data(get_weather("Moscow")))
+print(process_weather(get_weather("Moscow")))

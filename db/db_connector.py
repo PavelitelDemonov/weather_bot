@@ -2,25 +2,22 @@
 
 import asyncio
 import asyncpg
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
 class Database:
     def __init__(self):
         self.pool = None
         self.TTL_HOURS = 4
 
-    async def create_pool(self):
+    async def create_pool(self, user, password, database, host, port):
         self.pool = await asyncpg.create_pool(
-            user = os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD'),
-            database=os.getenv('DB_NAME'),
-            host=os.getenv('DB_HOST'),
-            port=os.getenv('DB_PORT'),
+            user = user,
+            password=password,
+            database=database,
+            host=host,
+            port=port,
             min_size= 5,
             max_size= 20,
-            
         )
         return self
 
