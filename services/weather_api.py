@@ -1,15 +1,10 @@
 import httpx
-import asyncio
 from typing import Any, Dict
-from dotenv import load_dotenv
-import os
 import json
 
-load_dotenv()
 
-async def get_weather(city:str) -> Dict[str, Any]:
+async def get_weather(city:str,api_key:str) -> Dict[str, Any]:
     try:
-        api_key = os.getenv('WEATHER_API_KEY')
         if not api_key:
             return{"Ошибка": "Не получен api ключ"}
         url = "http://api.openweathermap.org/data/2.5/weather"

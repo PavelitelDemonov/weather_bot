@@ -1,3 +1,5 @@
+#переписать коннектор под импорт в main и вызов его с параметрами из .env
+
 import asyncio
 import asyncpg
 from dotenv import load_dotenv

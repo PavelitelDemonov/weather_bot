@@ -1,6 +1,3 @@
-import asyncpg
-import asyncio
-import os
 from db_connector import Database
 
 
