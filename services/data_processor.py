@@ -2,9 +2,11 @@ import json
 from dataclasses import dataclass,asdict
 from typing import Dict,Any,Optional
 from datetime import datetime
+from .weather_api import get_weather
 
 @dataclass
 class WeatherData:
+    
     city_name: str
     main: str
     description: str
@@ -17,19 +19,21 @@ class WeatherData:
     
     def __str__(self):
         return(f"""
-                🌤️ Погода: {self.main} ({self.description})
-                🌡️ Температура: {self.temperature}°C (ощущается как {self.feels_like}°C)
-                💨 Ветер: {self.wind_speed} м/с
-                💧 Влажность: {self.humidity}%
-                📊 Давление: {self.pressure} гПа
-                👁️ Видимость: {self.visibility} м
-                    Город: {self.city_name}
+            🌤️ {self.description}
+            🌡️ Температура: {self.temperature}°C 
+            (ощущается как {self.feels_like}°C)
+            💨 Ветер: {self.wind_speed} м/с
+            💧 Влажность: {self.humidity}%
+            📊 Давление: {self.pressure} гПа
+            👁️ Видимость: {self.visibility} м
+            Город: {self.city_name}
             """)
 
-def process_raw_data(raw_data):
+async def process_weather(city, api_key):
         try:
-            weather_data = json.loads(raw_data)
-            weather_class = WeatherData(
+            raw_data = await get_weather(city,api_key)
+            weather_data =  json.loads(raw_data)
+            weather_class =  WeatherData(
                 main = weather_data['weather'][0]["main"] ,
                 description = weather_data['weather'][0]["description"],
                 temperature = round(weather_data['main']['temp']),

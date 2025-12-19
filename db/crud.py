@@ -1,7 +1,4 @@
-import asyncpg
-import asyncio
-import os
-from db_connector import Database
+from db.db_connector import Database
 
 
 class DatabaseManager:
